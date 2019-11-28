@@ -10,9 +10,6 @@ $(document).on("pagecreate", "#chartPage", function () {
 	
 	//store start time in unixtime 
 	startTime = Date.now();
-	
-	getData();
-
 
 	//set uplistener for button
 	$('#addButton').on('click', function() {
