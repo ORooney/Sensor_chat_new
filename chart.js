@@ -2,16 +2,22 @@ var dps = [];   //dataPoints.
 var chart;
 var startTime;
 
+
+
+
+
 $(document).on("pagecreate", "#chartPage", function () {
 	
 	//store start time in unixtime 
 	startTime = Date.now();
 	
+	getData();
+
+
 	//set uplistener for button
 	$('#addButton').on('click', function() {
 	
-		var randomValue = Math.random();
-		updateChart(randomValue);
+		getData();
 		
 	});
 	
@@ -35,15 +41,26 @@ $(document).on("pagecreate", "#chartPage", function () {
 	  
 });
 
-function updateChart(random) {
+
+
+
+function getData(){
+
+	watchID = navigator.accelerometer.watchAcceleration(updateChart , accelerometerError, accelerometerOptions);
+
+}
+
+
+
+
+
+function updateChart(data) {
       	
       	//set new random y values
-      	yVal = random;
+      	yVal = data.y;
 		
 		//x value is time since start 
-		xVal = Date.now() - startTime;
-		//concert from milliseocnds to seconds (divide by a thousand)
-		xVal = xVal / 1000;
+		xVal = data.x;
       	
 		//add them to the data points to draw
 		dps.push({x: xVal,y: yVal});
